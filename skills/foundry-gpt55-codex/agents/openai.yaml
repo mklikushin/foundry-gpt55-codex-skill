@@ -1,0 +1,4 @@
+interface:
+  display_name: "Foundry GPT-5.5 Codex"
+  short_description: "Reusable GPT-5.5 Foundry setup lessons for Codex"
+  default_prompt: "Use $foundry-gpt55-codex to apply a reusable Foundry GPT-5.5 setup workflow for Codex. Use Chrome first for Foundry UI, then Computer Use if Chrome is unavailable."
