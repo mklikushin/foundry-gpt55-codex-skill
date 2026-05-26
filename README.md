@@ -10,7 +10,8 @@ Run this from a machine with Codex installed:
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
-  --url https://github.com/mklikushin/foundry-gpt55-codex-skill/tree/main/skills/foundry-gpt55-codex
+  --repo mklikushin/foundry-gpt55-codex-skill \
+  --path skills/foundry-gpt55-codex
 ```
 
 Then restart Codex so it loads the new skill.
