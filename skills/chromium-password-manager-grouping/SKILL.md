@@ -13,6 +13,7 @@ Keep the investigation privacy-preserving: inspect domains, realms, schema, coun
 
 ## Current Findings
 
+- Reference Sol client import patch: `sandbox-technologies/inspector@874bba553a6d89852b4a82452323252fef9e530d` (`Import Chrome account-store passwords`). Use this commit as the known-good client-side baseline before investigating fork-side password-manager grouping.
 - Sol's client import patch can read both Chrome stores:
   - `Login Data For Account`
   - `Login Data`
