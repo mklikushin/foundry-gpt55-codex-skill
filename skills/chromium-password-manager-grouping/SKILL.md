@@ -11,6 +11,29 @@ Use this skill to hand off or investigate Sol/Chromium password-manager grouping
 
 Keep the investigation privacy-preserving: inspect domains, realms, schema, counts, and distinct username counts only. Do not log or surface usernames, passwords, decrypted values, or password hashes.
 
+## Actual Issue
+
+After importing Chrome passwords into Sol, `chrome://password-manager/passwords` can show multiple separate rows with the same visible site label instead of one grouped site row with multiple accounts. The concrete observed case was:
+
+```text
+account.ycombinator.com
+account.ycombinator.com
+```
+
+Each visible row represented one saved credential. The expected behavior is one `account.ycombinator.com` site entry containing two credentials, or, if Chromium's upstream password-manager grouping/branding supports it for this site, a higher-level `ycombinator.com` presentation that still preserves exact-origin autofill semantics.
+
+This is not a failure to import the passwords. A privacy-safe local database check showed two saved credentials already share the same exact Chromium realm:
+
+```text
+origin_url:    https://account.ycombinator.com/
+signon_realm: https://account.ycombinator.com/
+count:        2
+```
+
+So the bug to hand off is: **Sol's Chromium password-manager list model/WebUI is not grouping multiple local-store credentials that share the same normalized `origin_url`/`signon_realm` into a single visible site row.**
+
+Do not "fix" this by rewriting stored credential origins from `account.ycombinator.com` to `ycombinator.com`; that would change autofill matching scope. If the desired UI label is `ycombinator.com`, the fork should do that in the password-manager grouping/display layer, not by mutating credential storage origins.
+
 ## Current Findings
 
 - Reference Sol client import patch: `sandbox-technologies/inspector@874bba553a6d89852b4a82452323252fef9e530d` (`Import Chrome account-store passwords`). Use this commit as the known-good client-side baseline before investigating fork-side password-manager grouping.
