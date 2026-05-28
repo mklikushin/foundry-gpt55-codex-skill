@@ -1,12 +1,26 @@
-# Foundry GPT-5.5 Codex Skill
+# Codex Skills
 
-A reusable Codex skill based on a real GPT-5.5 Microsoft Foundry / Azure OpenAI setup issue.
+Reusable Codex skills for local engineering workflows and handoffs.
 
-The short version of the lesson: before debugging Codex config, verify the Foundry project region, GPT-5.5 quota, model deployment, and Azure OpenAI endpoint shape. In the original case, the project existed but the region did not support the target deployment; moving the Azure OpenAI resource to a supported region fixed the cloud-side blocker.
+## Available Skills
+
+### `foundry-gpt55-codex`
+
+A reusable field guide based on a real GPT-5.5 Microsoft Foundry / Azure OpenAI setup issue.
+
+Use it when Codex needs to diagnose Foundry region/quota mismatches, missing GPT-5.5 deployments, Azure OpenAI endpoint shape, API-key auth, `launchctl`/environment confusion, or `/openai/v1/responses` failures.
+
+### `chromium-password-manager-grouping`
+
+A Chromium fork maintainer handoff for Sol password-manager display/grouping bugs after Chrome password import.
+
+Use it when imported credentials are stored correctly but `chrome://password-manager/passwords` shows duplicate visible site rows, overly specific subdomain rows such as `account.domain.com`, or when deciding whether a password import symptom belongs in Sol client import code or Chromium fork password-manager UI/model support.
 
 ## Install
 
-Run this from a machine with Codex installed:
+Run these from a machine with Codex installed.
+
+### Install Foundry GPT-5.5 Codex
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
@@ -14,7 +28,15 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   --path skills/foundry-gpt55-codex
 ```
 
-Then restart Codex so it loads the new skill.
+### Install Chromium Password Manager Grouping
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo mklikushin/foundry-gpt55-codex-skill \
+  --path skills/chromium-password-manager-grouping
+```
+
+Restart Codex after installing so the new skill metadata is loaded.
 
 ## Use
 
@@ -24,25 +46,24 @@ Ask Codex:
 Use $foundry-gpt55-codex to help me wire Codex to GPT-5.5 in Foundry.
 ```
 
-The skill tells Codex to use the Chrome plugin first for logged-in Foundry/Azure UI, then Computer Use if Chrome is unavailable, and to ask for access or current screenshots if neither is available.
-
-## What It Covers
-
-- GPT-5.5 region and quota checks in Foundry
-- Missing model deployment vs missing project/resource
-- Azure OpenAI endpoint shape for `/openai/v1/responses`
-- Codex provider config examples
-- API-key handling with `env_key` or `launchctl`
-- A small endpoint probe script that redacts long token-like strings
-
-## Included Files
+or:
 
 ```text
-skills/foundry-gpt55-codex/
-├── SKILL.md
-├── agents/openai.yaml
-├── references/debug-checklist.md
-└── scripts/probe_azure_openai.mjs
+Use $chromium-password-manager-grouping to prepare the Sol/Chromium password-manager grouping handoff.
 ```
 
-No API keys or private credentials are included.
+## Repository Layout
+
+```text
+skills/
+├── chromium-password-manager-grouping/
+│   ├── SKILL.md
+│   └── agents/openai.yaml
+└── foundry-gpt55-codex/
+    ├── SKILL.md
+    ├── agents/openai.yaml
+    ├── references/debug-checklist.md
+    └── scripts/probe_azure_openai.mjs
+```
+
+No API keys, private credentials, usernames, or password values are included.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chromium Password Grouping"
+  short_description: "Debug password grouping after import"
+  default_prompt: "Use $chromium-password-manager-grouping to investigate imported password rows in Sol/Chromium, distinguish Sol import issues from Chromium password-manager grouping issues, and prepare a maintainer handoff."
